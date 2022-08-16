@@ -1,13 +1,13 @@
+import ContactItem from 'components/ContactItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteContact } from 'redux/contactSlice';
 import { getFilter, getItems } from 'redux/selectors';
-import { Item, Contact, BtnClose } from './ContactList.styled';
-// import { PropTypes } from 'prop-types';
+// import { Item } from './ContactList.styled';
 
 const ContactList = () => {
+  const dispatch = useDispatch();
   const contacts = useSelector(getItems);
   const filterContact = useSelector(getFilter);
-  const dispatch = useDispatch();
 
   const handleDelete = id => dispatch(deleteContact(id));
 
@@ -15,48 +15,21 @@ const ContactList = () => {
     contact.name.toLowerCase().includes(filterContact.toLowerCase())
   );
 
-  console.log(visibleContacts);
+  // console.log(visibleContacts);
 
   return (
     <ul>
-      {visibleContacts &&
-        visibleContacts.map(({ id, name, number }) => {
-          return (
-            <Item key={id}>
-              <Contact>
-                {name}: {number}
-              </Contact>
-              <BtnClose type="button" onClick={handleDelete}>
-                Delete
-              </BtnClose>
-            </Item>
-          );
-        })}
+      {visibleContacts.map(({ id, name, number }) => (
+        <ContactItem
+          id={id}
+          key={id}
+          name={name}
+          number={number}
+          onDelete={handleDelete}
+        />
+      ))}
     </ul>
   );
 };
-
-// const ContactList = ({ contacts, onRemoveContact }) => (
-//   <ul>
-//     {contacts &&
-//       contacts.map(({ id, name, number }) => {
-//         return (
-//           <Item key={id}>
-//             <Contact>
-//               {name}: {number}
-//             </Contact>
-//             <BtnClose type="button" onClick={() => onRemoveContact(id)}>
-//               Delete
-//             </BtnClose>
-//           </Item>
-//         );
-//       })}
-//   </ul>
-// );
-
-// ContactList.propTypes = {
-//   contacts: PropTypes.array,
-//   onRemoveContact: PropTypes.func,
-// };
 
 export default ContactList;

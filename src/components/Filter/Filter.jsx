@@ -24,20 +24,4 @@ const Filter = () => {
   );
 };
 
-// const Filter = ({ filter, onChange }) => (
-//   <LabelFilter>
-//     <InputFilter
-//       type="text"
-//       placeholder="Find contacts by name"
-//       value={filter}
-//       onChange={onChange}
-//     />
-//   </LabelFilter>
-// );
-
-// Filter.propTypes = {
-//   filter: PropTypes.string,
-//   onChange: PropTypes.func,
-// };
-
 export default Filter;
